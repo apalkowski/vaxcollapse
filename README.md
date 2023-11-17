@@ -14,7 +14,7 @@ VaxCollapse uses and/or references the following external libraries and packages
 - [pandas](https://pandas.pydata.org)
 - [tqdm](https://github.com/tqdm/tqdm)
 
-We thank all their contributors and maintainers!
+We wish to thank all their contributors and maintainers!
 
 ## License
 
