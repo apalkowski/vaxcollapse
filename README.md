@@ -8,9 +8,11 @@ A framework for specific design of mRNA vaccine targets.
 
 VaxCollapse uses and/or references the following external libraries, packages, and other software:
 
+- [BepiPred](https://services.healthtech.dtu.dk/services/BepiPred-3.0)
 - [Biopython](https://biopython.org)
 - [Matplotlib](https://matplotlib.org)
 - [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1)
+- [NetMHCIIpan](https://services.healthtech.dtu.dk/services/NetMHCIIpan-4.0)
 - [NumPy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
 - [tqdm](https://github.com/tqdm/tqdm)
