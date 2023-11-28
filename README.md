@@ -6,82 +6,155 @@ A framework for specific design of mRNA vaccine targets.
 
 ## Installation
 
-VaxCollapse have been tested only on **Python 3.9**, however it may work on newer versions as well.
+**VaxCollapse requires a working [Python](https://www.python.org) installation**. You can either install the [official distribution](https://www.python.org/downloads), install the [conda](https://docs.conda.io/projects/miniconda/en/latest/) manager (recommended), or use existing system installation (most recent Linux distributions should have a sufficient programming environment).
 
-Please follow these steps to install:
+VaxCollapse have been tested only on **Python 3.9**, however it may work on different versions as well.
 
-Install dependencies. It is recommended to create a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) or use the [conda](https://conda.io/projects/conda/en/latest/user-guide/index.html) manager to prevent conflicts with your system's Python environment.
+Please follow these steps to set up the pipeline:
 
-```bash
-pip install -r requirements.txt
-```
+1. Obtain the latest version of the package by either:
+
+   - Cloning this repository and `cd`-ing into it.
+
+        ```bash
+        git clone https://github.com/apalkowski/vaxcollapse.git
+        cd ./vaxcollapse
+        ```
+
+    or
+
+   - [Downloading](https://github.com/apalkowski/vaxcollapse/archive/refs/heads/main.zip) contents of this repository, unzipping it, and `cd`-ing into it.
+
+        ```bash
+        wget https://github.com/apalkowski/vaxcollapse/archive/refs/heads/main.zip
+        unzip vaxcollapse-main.zip
+        cd ./vaxcollapse-main
+        ```
+
+1. Install dependencies. It is recommended to create a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) or use the [conda manager](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) to prevent conflicts with your system's Python environment.
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+1. Download and install at least one of the inference software listed in the [Obtaining immunological features](#obtaining-immunological-features) section.
 
 ## Running VaxCollapse
 
 ### Preparing sequence data
 
+A.
+
+Hence, you should prepare a same-length protein sequences FASTA file, e.g.:
+
+```fasta
+>sequence_1
+MFVFLVLLP
+>sequence_2
+LKGVKLHYT
+>sequence_3
+FDEDDSEPV
+```
+
+and a corresponding coding region sequences (CDS) FASTA file:
+
+```fasta
+>sequence_1
+ATGTTTGTTTTTCTTGTTTTATTGCCA
+>sequence_2
+CTCAAAGGAGTCAAATTACATTACACA
+>sequence_3
+TTTGATGAAGACGACTCTGAGCCAGTG
+```
+
+***Important note:*** you should make sure that sequence IDs (FASTA headers) are as short as possible and contain no spaces, because some inference software may shorten them in its results files, which will turn VaxCollapse reporting impossible.
+
 ### Obtaining immunological features
 
-VaxCollapse currently supports protein features inferred by the following software:
+VaxCollapse currently supports protein features inferred by the following models:
 
-1. [BepiPred](https://services.healthtech.dtu.dk/services/BepiPred-3.0)
-1. [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1)
-1. [NetMHCIIpan](https://services.healthtech.dtu.dk/services/NetMHCIIpan-4.0)
-
-#### NetMHCpan
-
-Prediction of pan-specific binding of peptides to MHC class I alleles.
-
-```bash
-./netMHCpan -f <PROTEINS.FASTA> -l <PEPTIDE_LENGTH> -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
-```
-
-The output file can be a part of NetMHCpan-included analysis as one of its inputs. The table within should have the following structure:
-
-|         |             |        | HLA-A01:01 |           |              |             |         |        |
-| ------- | ----------- | ------ | ---------- | --------- | ------------ | ----------- | ------- | ------ |
-| **Pos** | **Peptide** | **ID** | **core**   | **icore** | **EL-score** | **EL_Rank** | **Ave** | **NB** |
-| 0       | MFVFLVLLP   | s_1    | MFVFLVLLP  | MFVFLVLLP | 0.0001       | 68.3333     | 0.0001  | 0      |
-| 1       | FVFLVLLPL   | s_1    | FVFLVLLPL  | FVFLVLLPL | 0.0002       | 43.9091     | 0.0002  | 0      |
-| 2       | VFLVLLPLV   | s_1    | VFLVLLPLV  | VFLVLLPLV | 0.0002       | 46.25       | 0.0002  | 0      |
-| ...     | ...         | ...    | ...        | ...       | ...          | ...         | ...     | ...    |
-
-#### NetMHCIIpan
-
-Prediction of pan-specific binding of peptides to MHC class II alleles.
-
-```bash
-./netMHCIIpan -f <PROTEINS.FASTA> -length <PEPTIDE_LENGTH> -inptype 0 -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
-```
-
-The output file can be a part of NetMHCIIpan-included analysis as one of its inputs. The table within should have the following structure:
-
-|         |                 |        |            | DRB1_0301 |              |           |           |          |        |
-| ------- | --------------- | ------ | ---------- | --------- | ------------ | --------- | --------- | -------- | ------ |
-| **Pos** | **Peptide**     | **ID** | **Target** | **Core**  | **Inverted** | **Score** | **Rank**  | **Ave**  | **NB** |
-| 1       | MFVFLVLLPLVSSQC | s_1    | NA         | LVLLPLVSS | 0            | 0.000041  | 90.740738 | 0.000041 | 0      |
-| 2       | FVFLVLLPLVSSQCV | s_1    | NA         | LVLLPLVSS | 0            | 0.000059  | 88.25     | 0.000059 | 0      |
-| 3       | VFLVLLPLVSSQCVN | s_1    | NA         | LLPLVSSQC | 0            | 0.00008   | 85.625    | 0.00008  | 0      |
-| ...     | ...             | ...    | ...        | ...       | ...          | ...       | ...       | ...      | ...    |
+1. [BepiPred](#bepipred)
+2. [NetMHCpan](#netmhcpan)
+3. [NetMHCIIpan](#netmhciipan)
 
 #### BepiPred
 
-Prediction of potential B-cell epitopes.
+Prediction of potential B-cell epitopes from protein sequence.
+
+Use the standalone version, as the online server may produce different results format. VaxCollapse currently supports only linear epitope prediction.
+
+An example command to produce inference results should look like the following:
 
 ```bash
 python bepipred3_CLI.py -i <PROTEINS.FASTA> -o <OUTPUT_DIR> -pred vt_pred -plot_linear_epitope_scores
 ```
 
-The input file for BepiPred-included analysis should be `raw_output.csv` residing in the output directory given as an argument to the application. The table within should have the following structure:
+The input file for BepiPred-included analysis should be `raw_output.csv` residing in the output directory `<OUTPUT_DIR>` given as an argument. The table within should have the following structure:
 
-| Accession | Residue | BepiPred-3.0 score | BepiPred-3.0 linear epitope score |
-| --------- | ------- | ------------------ | --------------------------------- |
-| s_1       | M       | 0.0239487458020449 | 0.0113448531677326                |
-| s_1       | F       | 0.023962065577507  | 0.0128710796642635                |
-| s_1       | V       | 0.0242273863404989 | 0.0140518152879344                |
-| ...       | ...     | ...                | ...                               |
+| Accession  | Residue | BepiPred-3.0 score | BepiPred-3.0 linear epitope score |
+| ---------- | ------- | ------------------ | --------------------------------- |
+| sequence_1 | M       | 0.0239487458020449 | 0.0113448531677326                |
+| sequence_1 | F       | 0.023962065577507  | 0.0128710796642635                |
+| sequence_1 | V       | 0.0242273863404989 | 0.0140518152879344                |
+| ...        | ...     | ...                | ...                               |
 
-## Citing this work
+To read detailed description of the method, terms of use, and access a standalone version, please refer to the [BepiPred server website](https://services.healthtech.dtu.dk/services/BepiPred-3.0).
+
+#### NetMHCpan
+
+Prediction of pan-specific binding of peptides to MHC class I alleles.
+
+Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based prediction.
+
+An example command to produce inference results should look like the following:
+
+```bash
+./netMHCpan -f <PROTEINS.FASTA> -l <PEPTIDE_LENGTH> -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
+```
+
+The output file `<OUTPUT_TABLE.TSV>` can be a part of NetMHCpan-included analysis as one of its inputs. The table within should have the following structure:
+
+|         |             |            | HLA-A01:01 |           |              |             |         |        |
+| ------- | ----------- | ---------- | ---------- | --------- | ------------ | ----------- | ------- | ------ |
+| **Pos** | **Peptide** | **ID**     | **core**   | **icore** | **EL-score** | **EL_Rank** | **Ave** | **NB** |
+| 0       | MFVFLVLLP   | sequence_1 | MFVFLVLLP  | MFVFLVLLP | 0.0001       | 68.3333     | 0.0001  | 0      |
+| 1       | FVFLVLLPL   | sequence_1 | FVFLVLLPL  | FVFLVLLPL | 0.0002       | 43.9091     | 0.0002  | 0      |
+| 2       | VFLVLLPLV   | sequence_1 | VFLVLLPLV  | VFLVLLPLV | 0.0002       | 46.25       | 0.0002  | 0      |
+| ...     | ...         | ...        | ...        | ...       | ...          | ...         | ...     | ...    |
+
+You may produce and use multiple results files per one proteins set, each for a different supported MHC class I allele.
+
+To read detailed description of the method, terms of use, and access a standalone version, please refer to the [NetMHCpan server website](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1).
+
+#### NetMHCIIpan
+
+Prediction of pan-specific binding of peptides to MHC class II alleles.
+
+Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based prediction.
+
+An example command to produce inference results should look like the following:
+
+```bash
+./netMHCIIpan -f <PROTEINS.FASTA> -length <PEPTIDE_LENGTH> -inptype 0 -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
+```
+
+The output file `<OUTPUT_TABLE.TSV>` can be a part of NetMHCIIpan-included analysis as one of its inputs. The table within should have the following structure:
+
+|         |                 |            |            | DRB1_0301 |              |           |           |          |        |
+| ------- | --------------- | ---------- | ---------- | --------- | ------------ | --------- | --------- | -------- | ------ |
+| **Pos** | **Peptide**     | **ID**     | **Target** | **Core**  | **Inverted** | **Score** | **Rank**  | **Ave**  | **NB** |
+| 1       | MFVFLVLLPLVSSQC | sequence_1 | NA         | LVLLPLVSS | 0            | 0.000041  | 90.740738 | 0.000041 | 0      |
+| 2       | FVFLVLLPLVSSQCV | sequence_1 | NA         | LVLLPLVSS | 0            | 0.000059  | 88.25     | 0.000059 | 0      |
+| 3       | VFLVLLPLVSSQCVN | sequence_1 | NA         | LLPLVSSQC | 0            | 0.00008   | 85.625    | 0.00008  | 0      |
+| ...     | ...             | ...        | ...        | ...       | ...          | ...       | ...       | ...      | ...    |
+
+You may produce and use multiple results files per one proteins set, each for a different supported MHC class II allele.
+
+To read detailed description of the method, terms of use, and access a standalone version, please refer to the [NetMHCIIpan server website](https://services.healthtech.dtu.dk/services/NetMHCIIpan-4.0).
+
+### R
+
+## Citing This Work
 
 If you use VaxCollapse in a scientific publication, please cite:
 
