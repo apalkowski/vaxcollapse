@@ -6,6 +6,10 @@ A framework for specific design of mRNA vaccine targets.
 
 ### NetMHCpan
 
+```bash
+./netMHCpan -f <PROTEINS.FASTA> -l <PEPTIDE_LENGTH> -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
+```
+
 The output file can be a part of NetMHCpan-included analysis as one of its inputs. The table within should have the following structure:
 
 |         |             |        | HLA-A01:01 |           |              |             |         |        |
@@ -18,6 +22,10 @@ The output file can be a part of NetMHCpan-included analysis as one of its input
 
 ### NetMHCIIpan
 
+```bash
+./netMHCIIpan -f <PROTEINS.FASTA> -length <PEPTIDE_LENGTH> -inptype 0 -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
+```
+
 The output file can be a part of NetMHCIIpan-included analysis as one of its inputs. The table within should have the following structure:
 
 |         |                 |        |            | DRB1_0301 |              |           |           |          |        |
@@ -29,6 +37,10 @@ The output file can be a part of NetMHCIIpan-included analysis as one of its inp
 | ...     | ...             | ...    | ...        | ...       | ...          | ...       | ...       | ...      | ...    |
 
 ### BepiPred
+
+```bash
+python bepipred3_CLI.py -i <PROTEINS.FASTA> -o <OUTPUT_DIR> -pred vt_pred -plot_linear_epitope_scores
+```
 
 The input file for BepiPred-included analysis should be `raw_output.csv` residing in the output directory given as an argument to the application. The table within should have the following structure:
 
