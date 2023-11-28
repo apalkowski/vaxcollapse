@@ -4,7 +4,33 @@
 
 A framework for specific design of mRNA vaccine targets.
 
-### NetMHCpan
+## Installation
+
+VaxCollapse have been tested only on **Python 3.9**, however it may work on newer versions as well.
+
+Please follow these steps to install:
+
+Install dependencies. It is recommended to create a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) or use the [conda](https://conda.io/projects/conda/en/latest/user-guide/index.html) manager to prevent conflicts with your system's Python environment.
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running VaxCollapse
+
+### Preparing sequence data
+
+### Obtaining immunological features
+
+VaxCollapse currently supports protein features inferred by the following software:
+
+1. [BepiPred](https://services.healthtech.dtu.dk/services/BepiPred-3.0)
+1. [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1)
+1. [NetMHCIIpan](https://services.healthtech.dtu.dk/services/NetMHCIIpan-4.0)
+
+#### NetMHCpan
+
+Prediction of pan-specific binding of peptides to MHC class I alleles.
 
 ```bash
 ./netMHCpan -f <PROTEINS.FASTA> -l <PEPTIDE_LENGTH> -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
@@ -20,7 +46,9 @@ The output file can be a part of NetMHCpan-included analysis as one of its input
 | 2       | VFLVLLPLV   | s_1    | VFLVLLPLV  | VFLVLLPLV | 0.0002       | 46.25       | 0.0002  | 0      |
 | ...     | ...         | ...    | ...        | ...       | ...          | ...         | ...     | ...    |
 
-### NetMHCIIpan
+#### NetMHCIIpan
+
+Prediction of pan-specific binding of peptides to MHC class II alleles.
 
 ```bash
 ./netMHCIIpan -f <PROTEINS.FASTA> -length <PEPTIDE_LENGTH> -inptype 0 -xls -xlsfile <OUTPUT_TABLE.TSV> -a <ALLELE_NAME>
@@ -36,7 +64,9 @@ The output file can be a part of NetMHCIIpan-included analysis as one of its inp
 | 3       | VFLVLLPLVSSQCVN | s_1    | NA         | LLPLVSSQC | 0            | 0.00008   | 85.625    | 0.00008  | 0      |
 | ...     | ...             | ...    | ...        | ...       | ...          | ...       | ...       | ...      | ...    |
 
-### BepiPred
+#### BepiPred
+
+Prediction of potential B-cell epitopes.
 
 ```bash
 python bepipred3_CLI.py -i <PROTEINS.FASTA> -o <OUTPUT_DIR> -pred vt_pred -plot_linear_epitope_scores
@@ -50,6 +80,23 @@ The input file for BepiPred-included analysis should be `raw_output.csv` residin
 | s_1       | F       | 0.023962065577507  | 0.0128710796642635                |
 | s_1       | V       | 0.0242273863404989 | 0.0140518152879344                |
 | ...       | ...     | ...                | ...                               |
+
+## Citing this work
+
+If you use VaxCollapse in a scientific publication, please cite:
+
+```bibtex
+@Article{VaxCollapseX,
+  author  = {Palkowski, Aleksander},
+  journal = {X},
+  title   = {{VaxCollapse}: A framework for specific design of {mRNA} vaccine targets},
+  year    = {X},
+  volume  = {X},
+  number  = {X},
+  pages   = {X--X},
+  doi     = {X}
+}
+```
 
 ## Acknowledgements
 
@@ -66,6 +113,14 @@ VaxCollapse uses and/or references the following external libraries, packages, a
 
 We wish to thank all their contributors and maintainers!
 
-## License
+## License and Disclaimer
 
 Copyright 2023 Aleksander Pałkowski.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <http://www.apache.org/licenses/LICENSE-2.0>.
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+### Third-party software
+
+The software, libraries, or code from third parties mentioned in the [Acknowledgements](#acknowledgements) section above may come with their own terms and conditions or licensing requirements. When using this third-party software, libraries, or code, it's essential to adhere to these terms. Ensure you understand and can follow any relevant restrictions or terms and conditions prior to using them.
