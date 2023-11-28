@@ -104,7 +104,7 @@ To read detailed description of the method, terms of use, and access a standalon
 
 Prediction of pan-specific binding of peptides to MHC class I alleles.
 
-Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based prediction.
+Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based input.
 
 An example command to produce inference results should look like the following:
 
@@ -130,7 +130,7 @@ To read detailed description of the method, terms of use, and access a standalon
 
 Prediction of pan-specific binding of peptides to MHC class II alleles.
 
-Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based prediction.
+Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based input.
 
 An example command to produce inference results should look like the following:
 
@@ -162,7 +162,7 @@ If you use VaxCollapse in a scientific publication, please cite:
 @Article{VaxCollapseX,
   author  = {Palkowski, Aleksander},
   journal = {X},
-  title   = {{VaxCollapse}: A framework for specific design of {mRNA} vaccine targets},
+  title   = {{VaxCollapse: A framework for specific design of mRNA vaccine targets}},
   year    = {X},
   volume  = {X},
   number  = {X},
