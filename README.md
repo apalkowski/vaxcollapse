@@ -37,11 +37,11 @@ Please follow these steps to set up the pipeline:
     pip install -r requirements.txt
     ```
 
-1. Download and install at least one of the inference software listed in the [Obtaining immunological features](#obtaining-immunological-features) section.
+1. Download and install at least one of the inference software listed in the [Obtaining Immunological Features](#obtaining-immunological-features) section.
 
 ## Running VaxCollapse
 
-### Preparing sequence data
+### Preparing Sequence Data
 
 A.
 
@@ -69,7 +69,7 @@ TTTGATGAAGACGACTCTGAGCCAGTG
 
 ***Important note:*** you should make sure that sequence IDs (FASTA headers) are as short as possible and contain no spaces, because some inference software may shorten them in its results files, which will turn VaxCollapse reporting impossible.
 
-### Obtaining immunological features
+### Obtaining Immunological Features
 
 VaxCollapse currently supports protein features inferred by the following models:
 
@@ -77,11 +77,15 @@ VaxCollapse currently supports protein features inferred by the following models
 2. [NetMHCpan](#netmhcpan)
 3. [NetMHCIIpan](#netmhciipan)
 
+It is important to use the same proteins FASTA file (with the same sequence headers) as input to supported models within one analysis pipeline.
+
 #### BepiPred
 
 Prediction of potential B-cell epitopes from protein sequence.
 
-Use the standalone version, as the online server may produce different results format. VaxCollapse currently supports only linear epitope prediction.
+To read detailed description of the tool, its terms of use, and access online or standalone versions, please refer to the [BepiPred server website](https://services.healthtech.dtu.dk/services/BepiPred-3.0).
+
+For VaxCollapse use the standalone version, as the online server may produce different results format. VaxCollapse currently supports only linear epitope prediction.
 
 An example command to produce inference results should look like the following:
 
@@ -98,13 +102,13 @@ The input file for BepiPred-included analysis should be `raw_output.csv` residin
 | sequence_1 | V       | 0.0242273863404989 | 0.0140518152879344                |
 | ...        | ...     | ...                | ...                               |
 
-To read detailed description of the method, terms of use, and access a standalone version, please refer to the [BepiPred server website](https://services.healthtech.dtu.dk/services/BepiPred-3.0).
-
 #### NetMHCpan
 
 Prediction of pan-specific binding of peptides to MHC class I alleles.
 
-Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based input.
+To read detailed description of the tool, its terms of use, and access online or standalone versions, please refer to the [NetMHCpan server website](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1).
+
+For VaxCollapse use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based input.
 
 An example command to produce inference results should look like the following:
 
@@ -124,13 +128,13 @@ The output file `<OUTPUT_TABLE.TSV>` can be a part of NetMHCpan-included analysi
 
 You may produce and use multiple results files per one proteins set, each for a different supported MHC class I allele.
 
-To read detailed description of the method, terms of use, and access a standalone version, please refer to the [NetMHCpan server website](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1).
-
 #### NetMHCIIpan
 
 Prediction of pan-specific binding of peptides to MHC class II alleles.
 
-Use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based input.
+To read detailed description of the tool, its terms of use, and access online or standalone versions, please refer to the [NetMHCIIpan server website](https://services.healthtech.dtu.dk/services/NetMHCIIpan-4.0).
+
+For VaxCollapse use the standalone version, as the online server may produce different results format. Produce one results file per one allele and one peptide length. VaxCollapse supports only whole-protein-based input.
 
 An example command to produce inference results should look like the following:
 
@@ -149,8 +153,6 @@ The output file `<OUTPUT_TABLE.TSV>` can be a part of NetMHCIIpan-included analy
 | ...     | ...             | ...        | ...        | ...       | ...          | ...       | ...       | ...      | ...    |
 
 You may produce and use multiple results files per one proteins set, each for a different supported MHC class II allele.
-
-To read detailed description of the method, terms of use, and access a standalone version, please refer to the [NetMHCIIpan server website](https://services.healthtech.dtu.dk/services/NetMHCIIpan-4.0).
 
 ### R
 
@@ -194,6 +196,6 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-### Third-party software
+### Third-Party Software
 
 The software, libraries, or code from third parties mentioned in the [Acknowledgements](#acknowledgements) section above may come with their own terms and conditions or licensing requirements. When using this third-party software, libraries, or code, it's essential to adhere to these terms. Ensure you understand and can follow any relevant restrictions or terms and conditions prior to using them.
