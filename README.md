@@ -56,7 +56,7 @@ Because of current limitations, VaxCollapse requires specifically tailored seque
 1. Sequences represent the same type of a protein.
 1. Sequences are of the same length (within one file).
 1. Related protein and CDS sequences must have the same FASTA header.
-1. CDS sequences need to represent 1:1 nucleotides translation to amino acids.
+1. CDS and protein sequences need to represent 1:1 nucleotides translation to amino acids.
 
 Hence, you should prepare a same-length protein sequences FASTA file, e.g.:
 
