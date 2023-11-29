@@ -5,6 +5,7 @@ Handling operations connected to NetMHCpan results.
 
 Default Rank threshold for high binding peptides: 0.5
 Default Rank Threshold for low binding peptides: 2.0
+(lesser than)
 
 Copyright 2023 Aleksander Pałkowski.
 """

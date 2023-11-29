@@ -5,6 +5,7 @@ Handling operations connected to BepiPred results.
 
 Default threshold to use, when making predictions
 on average ensemble positive probability outputs: 0.1512
+(greater than)
 
 Copyright 2023 Aleksander Pałkowski.
 """

@@ -1,4 +1,6 @@
 """
+VaxCollapse: A framework for specific design of mRNA vaccine targets.
+
 CLI for VaxCollapse.
 
 Copyright 2023 Aleksander Pałkowski.
