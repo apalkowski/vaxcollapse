@@ -41,9 +41,22 @@ Please follow these steps to set up the pipeline:
 
 ## Running VaxCollapse
 
+At a minimum, VaxCollapse requires three files as input:
+
+1. FASTA file with protein sequences.
+1. FASTA file with coding region sequences (CDS) of the above proteins.
+1. Text table file describing a specific immunological feature of the above proteins, produced by one of the [supported models](#obtaining-immunological-features).
+
+The third option can be extended to several such files, each describing another immunological feature, be it related to a different kind of immune mechanism (e.g., MHC class I antigen presentation or B-cell epitope detection) or to genetic variance (e.g., associated with alternative MHC alleles).
+
 ### Preparing Sequence Data
 
-A.
+Because of current limitations, VaxCollapse requires specifically tailored sequence files as input. Make sure that those meet the following conditions:
+
+1. Sequences represent the same type of a protein.
+1. Sequences are of the same length (within one file).
+1. Related protein and CDS sequences must have the same FASTA header.
+1. CDS sequences need to represent 1:1 nucleotides translation to amino acids.
 
 Hence, you should prepare a same-length protein sequences FASTA file, e.g.:
 
@@ -56,7 +69,7 @@ LKGVKLHYT
 FDEDDSEPV
 ```
 
-and a corresponding coding region sequences (CDS) FASTA file:
+and a corresponding CDS FASTA file:
 
 ```fasta
 >sequence_1
@@ -154,7 +167,12 @@ The output file `<OUTPUT_TABLE.TSV>` can be a part of NetMHCIIpan-included analy
 
 You may produce and use multiple results files per one proteins set, each for a different supported MHC class II allele.
 
-### R
+### Generating Vaccine Targets
+
+## To Do
+
+- [ ] Add support for more immunological models.
+- [ ] Change the core model to a network-based.
 
 ## Citing This Work
 
@@ -163,8 +181,8 @@ If you use VaxCollapse in a scientific publication, please cite:
 ```bibtex
 @Article{VaxCollapseX,
   author  = {Palkowski, Aleksander},
-  journal = {X},
   title   = {{VaxCollapse: A framework for specific design of mRNA vaccine targets}},
+  journal = {X},
   year    = {X},
   volume  = {X},
   number  = {X},
