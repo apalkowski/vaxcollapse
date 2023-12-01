@@ -56,7 +56,7 @@ Because of current limitations, VaxCollapse requires specifically tailored seque
 1. Sequences represent the same type of a protein.
 1. Sequences are of the same length (within one file).
 1. Related protein and CDS sequences must have the same FASTA header.
-1. CDS and protein sequences need to represent 1:1 nucleotides translation to amino acids.
+1. CDS and protein sequences need to represent 1:1 nucleotides to amino acids translation.
 
 Hence, you should prepare a same-length protein sequences FASTA file, e.g.:
 
@@ -69,7 +69,7 @@ LKGVKLHYT
 FDEDDSEPV
 ```
 
-and a corresponding CDS FASTA file:
+and a corresponding CDSs FASTA file:
 
 ```fasta
 >sequence_1
@@ -86,9 +86,9 @@ TTTGATGAAGACGACTCTGAGCCAGTG
 
 VaxCollapse currently supports protein features inferred by the following models:
 
-1. [BepiPred](#bepipred)
-2. [NetMHCpan](#netmhcpan)
-3. [NetMHCIIpan](#netmhciipan)
+1. [BepiPred](#bepipred) v3.0b
+2. [NetMHCpan](#netmhcpan) v4.1b
+3. [NetMHCIIpan](#netmhciipan) v4.3b
 
 It is important to use the same proteins FASTA file (with the same sequence headers) as input to supported models within one analysis pipeline.
 
@@ -172,6 +172,7 @@ You may produce and use multiple results files per one proteins set, each for a 
 ## To Do
 
 - [ ] Add support for more immunological models.
+- [ ] Add support for different-length sequences (alignment?).
 - [ ] Change the core model to a network-based.
 
 ## Citing This Work
